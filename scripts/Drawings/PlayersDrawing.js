@@ -21,16 +21,21 @@ calculateRemainingCooldown(currentTime, spellEndTime) {
   return parseFloat((timeDifference / 1000).toFixed(1));
 }
 
+sortPlayersByDistance(players) {
+  return players.sort((a, b) => a.distance - b.distance);
+}
+
   drawItems(context, canvas, players, devMode, castedSpells, spellsDev) {
     let posY = 15;
     const currentTime = new Date();
+    const sortedPlayers = this.sortPlayersByDistance(players);
 
     if (players.length <= 0) {
       this.settings.ClearPreloadedImages("Items");
       return;
     }
 
-    for (const playerOne of players) {
+    for (const playerOne of sortedPlayers) {
       const items = playerOne.items;
       const spells = playerOne.spells;
 
